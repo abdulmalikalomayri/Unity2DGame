@@ -99,7 +99,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 451000795
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: -548588309, guid: 46e4f9cb8324f7d4192f1fdc6d355f82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -163,7 +163,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 3.5
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b6de5bea5f9fc8d43a6edb2ffc923be7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -353,6 +353,7 @@ MonoBehaviour:
   runSpeed: 7.5
   jumpSpeed: 13
   climbSpeed: 6
+  deathKick: {x: 0, y: 10}
   myAnimator: {fileID: 0}
 --- !u!61 &8129845324639215948
 BoxCollider2D:
@@ -386,7 +387,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.032421112, y: -0.4531603}
+  m_Offset: {x: -0.04652977, y: -0.4531603}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -397,5 +398,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.4807434, y: 0.08903456}
+  m_Size: {x: 0.40549088, y: 0.08903456}
   m_EdgeRadius: 0

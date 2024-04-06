@@ -29,7 +29,7 @@ public class EnemyMovement : MonoBehaviour
     void FlipEnemyFacing() 
     {
         // if the enemy is moving right, then the scale is 1f
-        transform.localScale = new Vector2(Mathf.Sign(myRigidbody.velocity.x), 1f);
+        transform.localScale = new Vector2(-(Mathf.Sign(myRigidbody.velocity.x)), 1f);
 
     }
 }

@@ -12,12 +12,18 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] float climbSpeed = 10f;
 
+    [SerializeField] Vector2 deathKick = new Vector2(25f, 25f);
+
     float gravityScaleAtStart;
+
+    bool isAlive = true;
 
     // take user input from the new input system
     Vector2 moveInput;
     Rigidbody2D myRigidbody;
     // Start is called before the first frame update
+
+    SpriteRenderer mySpriteRenderer;
                                                                                 
     CapsuleCollider2D myCapsuleCollider;
     BoxCollider2D myBoxCollider;
@@ -46,6 +52,8 @@ public class PlayerMove : MonoBehaviour
 
         gravityScaleAtStart = myRigidbody.gravityScale;
 
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
+
         // show the current folder path of the script
         Debug.Log("The current path of the script is: " + Application.dataPath);
          
@@ -54,15 +62,18 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if you're not alive, then don't do anything
+        if(!isAlive) { return; }
         Run();
         FlipSprite();
         ClimbLadder();
+        Die();
 
     }
 
     void OnMove(InputValue value) 
     {
-
+        if(!isAlive) { return; }
         Debug.Log("onMove method is called!");
         moveInput = value.Get<Vector2>();
 
@@ -71,7 +82,8 @@ public class PlayerMove : MonoBehaviour
 
     void Run() 
     {
-        
+        if(!isAlive) { return; }
+
         // Movement of the player 
         Vector2 playerVelocity = new Vector2(moveInput.x * runSpeed, myRigidbody.velocity.y);
         myRigidbody.velocity = playerVelocity ;
@@ -116,6 +128,31 @@ public class PlayerMove : MonoBehaviour
         {
             Debug.Log("Jump is pressed!");
             myRigidbody.velocity = new Vector2(0f, jumpSpeed);
+        }
+    }
+
+    void Die()
+    {
+        if(myCapsuleCollider.IsTouchingLayers(LayerMask.GetMask("Enemies", "Hazards")))
+        {
+            isAlive = false;
+            
+            
+
+
+
+            myAnimator.SetTrigger("Die");
+            Debug.Log("Ginger is dead!");
+            // GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 10f);
+            myRigidbody.velocity = deathKick;
+            mySpriteRenderer.color = Color.red;
+            //
+            transform.Rotate(0, 0, 90);
+            myAnimator.SetTrigger("Dying");
+            
+             
+
+            // FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
     }
 
