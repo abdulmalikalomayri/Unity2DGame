@@ -14,6 +14,8 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] Vector2 deathKick = new Vector2(25f, 25f);
 
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform gun;
     float gravityScaleAtStart;
 
     bool isAlive = true;
@@ -31,6 +33,8 @@ public class PlayerMove : MonoBehaviour
     // catch the reference of the animator
     // This only define variable with type Animator 
     public Animator myAnimator;
+
+
 
     void Start()
     {
@@ -68,7 +72,13 @@ public class PlayerMove : MonoBehaviour
         FlipSprite();
         ClimbLadder();
         Die();
+         
+    }
 
+    void OnFire(InputValue value) 
+    {
+        if(!isAlive) { return; }
+        Instantiate(bullet, gun.position, gun.rotation);
     }
 
     void OnMove(InputValue value) 
