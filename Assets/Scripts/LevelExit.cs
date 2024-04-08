@@ -26,6 +26,13 @@ public class LevelExit : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // store the current scene index
         Debug.Log(currentSceneIndex);
 
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if(nextSceneIndex == SceneManager.sceneCountInBuildSettings) // if the next scene is the last scene
+        {
+            nextSceneIndex = 0; // go back to the first scene
+        }
+
         SceneManager.LoadScene(currentSceneIndex + 1); // load the next scene
     }
 
