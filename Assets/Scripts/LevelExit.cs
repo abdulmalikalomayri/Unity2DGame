@@ -5,35 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
-    
     [SerializeField] float levelLoadDelay = 1f;
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-
-        StartCoroutine(LoadNextLevel()); // wait a memoment before loadin the next level
-
-        if(other.tag == "Player")
+    
+    void OnTriggerEnter2D(Collider2D other) 
+    {        
+        if (other.tag == "Player")
         {
-            Debug.Log("Player reached the exit");
+            StartCoroutine(LoadNextLevel());
         }
     }
 
     IEnumerator LoadNextLevel()
     {
-        yield return new WaitForSeconds(levelLoadDelay); // here it will pause for 1 second
-
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex; // store the current scene index
-        Debug.Log(currentSceneIndex);
-
+        yield return new WaitForSecondsRealtime(levelLoadDelay);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         int nextSceneIndex = currentSceneIndex + 1;
 
-        if(nextSceneIndex == SceneManager.sceneCountInBuildSettings) // if the next scene is the last scene
+        if(nextSceneIndex == SceneManager.sceneCountInBuildSettings)
         {
-            nextSceneIndex = 0; // go back to the first scene
+            nextSceneIndex = 0;
         }
 
-        SceneManager.LoadScene(currentSceneIndex + 1); // load the next scene
+        // FindObjectOfType<ScenePersist>().ResetScenePersist();
+        SceneManager.LoadScene(nextSceneIndex);
     }
-
 }
