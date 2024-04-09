@@ -16,6 +16,9 @@ public class PlayerMove : MonoBehaviour
 
     [SerializeField] GameObject bullet;
     [SerializeField] Transform gun;
+
+    [SerializeField] AudioClip deathSound;
+
     float gravityScaleAtStart;
 
     bool isAlive = true;
@@ -129,7 +132,7 @@ public class PlayerMove : MonoBehaviour
     void OnJump(InputValue value)
     {
         // get out of this method if the player is not touching the ground = to disable infinite jump/flying
-        if(!myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) 
+        if(!myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
         {
             return;
         }
@@ -137,6 +140,8 @@ public class PlayerMove : MonoBehaviour
         if(value.isPressed)
         {
             Debug.Log("Jump is pressed!");
+            AudioSource.PlayClipAtPoint(deathSound, this.transform.position);
+
             myRigidbody.velocity = new Vector2(0f, jumpSpeed);
         }
     }
@@ -150,15 +155,16 @@ public class PlayerMove : MonoBehaviour
             
 
 
+            AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position);
 
             myAnimator.SetTrigger("Die");
             Debug.Log("Ginger is dead!");
             // GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 10f);
             myRigidbody.velocity = deathKick;
             mySpriteRenderer.color = Color.red;
-            //
             transform.Rotate(0, 0, 90);
             myAnimator.SetTrigger("Dying");
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
             
              
 
@@ -193,5 +199,14 @@ public class PlayerMove : MonoBehaviour
         //     myAnimator.SetBool("isClimbing", true);
         // }
 
+    }
+
+    public void freezePlayer()
+    {
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
+        // disable the player movement
+        myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
+        
     }
 }
