@@ -206,7 +206,6 @@ public class PlayerMove : MonoBehaviour
         myRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         myRigidbody.constraints = RigidbodyConstraints2D.FreezePosition;
         // disable the player movement
-        myRigidbody.constraints = RigidbodyConstraints2D.FreezePositionX;
         
     }
 }
