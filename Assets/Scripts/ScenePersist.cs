@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class ScenePersist : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    // Awake method is called before Start method, it's the first method called
+    void Awake()
     {
-        
+        // below logic is to keep eniemies and coins from respawning when the player dies
+        int numScenePersists = FindObjectsOfType<ScenePersist>().Length;
+        if(numScenePersists > 1)
+        {
+            Destroy(gameObject);
+        }
+        else 
+        {
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetScenePersist()
     {
-        
+        Destroy(gameObject);
     }
 }

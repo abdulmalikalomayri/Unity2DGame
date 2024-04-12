@@ -81,7 +81,9 @@ public class PlayerMove : MonoBehaviour
     void OnFire(InputValue value) 
     {
         if(!isAlive) { return; }
+        myAnimator.SetBool("isShooting", true);
         Instantiate(bullet, gun.position, gun.rotation);
+
     }
 
     void OnMove(InputValue value) 
@@ -131,14 +133,18 @@ public class PlayerMove : MonoBehaviour
 
     void OnJump(InputValue value)
     {
+         
         // get out of this method if the player is not touching the ground = to disable infinite jump/flying
         if(!myBoxCollider.IsTouchingLayers(LayerMask.GetMask("Ground")))
-        {
+        {            
+            
             return;
         }
 
         if(value.isPressed)
         {
+            
+
             Debug.Log("Jump is pressed!");
             AudioSource.PlayClipAtPoint(deathSound, this.transform.position);
 

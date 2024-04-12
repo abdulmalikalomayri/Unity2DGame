@@ -14,8 +14,12 @@ public class Bullet : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         player = FindObjectOfType<PlayerMove>();
+         
+
         Debug.Log(player.name);
         xSpeed = player.transform.localScale.x * bulletSpeed; // when bullet come to life what is the player direction?
+        // player.myAnimator.SetTrigger("Shooting");
+        
     }
 
      void Update()

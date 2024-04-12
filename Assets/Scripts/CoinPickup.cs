@@ -14,7 +14,7 @@ public class CoinPickup : MonoBehaviour
         if(other.gameObject.tag == "Player" && !wasCollected){
             wasCollected = true;
 
-            AudioSource.PlayClipAtPoint(coinPickupSFX, Camera.main.transform.position);
+            // AudioSource.PlayClipAtPoint(coinPickupSFX, Camera.main.transform.position);
             Destroy(gameObject);
 
             gameObject.SetActive(false);
